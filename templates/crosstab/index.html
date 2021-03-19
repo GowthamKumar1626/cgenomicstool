@@ -1,0 +1,77 @@
+{% extends './../base.html' %}
+
+<!-- Block Content -->
+{% block content %} {% load static %}
+<main class="col-md-9 ms-sm-auto col-lg-12 px-md-6">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2 m-2">Gene Presence</h1>
+                <div class="btn-toolbar mb-2 mb-md-0 m-2">
+                    <form action="{% url 'crosstab' %}" enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            {{ form.file }}
+                            <input class="input-group-text" type="submit" value="Find">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row p-2">
+        <div class="col-sm-5 h-50 d-inline-block">
+            <!-- if block -->
+            {% if filled_form_note %}
+            <img src="{% static '/img/crosstab.png' %}" class="img-fluid float-right" alt="heatmap">
+        </div>
+        <div class="col-sm-7 h-50 d-inline-block">
+            <div class="row">
+                <div class="col-6">
+                    <a href="#" class="btn btn-dark btn-lg w-40 disabled" role="button" aria-disabled="true">Gene Encodings</a>
+                </div>
+                <div class="col-6">
+                    <a href="#" class="btn btn-dark btn-lg w-40 disabled" role="button" aria-disabled="true">Genome Encodings</a>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-6 overflow-auto" style="height: 400px;">
+                    <table class="table table-success table-striped">
+                        <tr>
+                            <th>Encoding</th>
+                            <th>Gene Name</th>
+                        </tr>
+                        {% for each in gene %}
+                        <tr>
+                            <td>{{ forloop.counter0 }}</td>
+                            <td>{{ each }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="col-6 overflow-auto" style="height: 400px;">
+                    <table class="table table-success table-striped">
+                        <tr>
+                            <th>Encoding</th>
+                            <th>Genome Name</th>
+                        </tr>
+                        {% for each in genome %}
+                        <tr>
+                            <td>{{ forloop.counter0 }}</td>
+                            <td>{{ each }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- endif -->
+        {% endif %}
+        <div class="col-sm-7 h-50 d-inline-block">
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}

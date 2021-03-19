@@ -1,0 +1,24 @@
+/* Glass Effect */
+
+.container {
+    background-color: rgba(255, 255, 255, .15);
+}
+
+.container {
+    background-color: rgba(255, 255, 255, .15);
+    backdrop-filter: blur(5px);
+}
+
+
+/* Borders */
+
+.border {
+    border: 1px solid black;
+}
+
+
+/* Sidebar */
+
+.sidebar {
+    min-height: calc(100vh - 50px);
+}
