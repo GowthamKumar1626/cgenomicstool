@@ -33,17 +33,5 @@ class GeneAndGenome:
         self.crosstab_genome = list(corsstab_dataframe["Genome"])
         values = corsstab_dataframe.iloc[:, 1:].values
         self.values = values.T
-    def crosstab_gene_vs_genome(self):
-        def gene_name_filter(value):
-            if value[0] == 0:
-                return False
-            else:
-                return value
-        genome_present = []
-        for i in range(len(self.crosstab_gene)):
-            result = list(filter(gene_name_filter, list(zip(self.values[i], self.crosstab_genome))))
-            genome_present.append([each[1] for each in result])
-        
-        self.gene_vs_genome = list(zip(self.crosstab_gene, genome_present))
     def get_data(self):
-        return (self.crosstab_gene, self.crosstab_genome, self.gene_vs_genome)
+        return (self.crosstab_gene, self.crosstab_genome, self.values)

@@ -17,7 +17,6 @@ class GeneAndGenomeHandler:
     def __new__(cls):
         GG = GeneAndGenome()
         GG.read_crosstab()
-        GG.crosstab_gene_vs_genome()
         return GG.get_data()
 
 

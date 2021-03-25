@@ -24,7 +24,7 @@ class IPAddressModel(models.Model):
 class ResultModel(models.Model):
     
     job_id = models.ForeignKey(IPAddressModel, auto_created=True, on_delete=models.CASCADE)
-    # image = models.ImageField(upload_to=upload_location)
+    image = models.ImageField()
     # data = models.FileField(null=True, upload_to=upload_location)
 
     # def __str__(self):
@@ -33,7 +33,10 @@ class ResultModel(models.Model):
 
 def create_resultmodel_record(sender, instance, created, **kwargs):
     if created:
-        ResultModel.objects.create(job_id = instance)
+        # ResultModel.objects.create(job_id = instance, image="./outputs/crosstab.png")
+        r = ResultModel.objects.create(job_id=instance)
+        r.image = ImageFile(open("./cgenomicstool/static/img/crosstab.png", "rb"))
+        r.save()
 
 post_save.connect(create_resultmodel_record, sender = IPAddressModel)
 
