@@ -1,11 +1,13 @@
+# Imports
 from django.shortcuts import render
 from .form import UploadFileForm
 from .models import IPAddressModel
 from .handlers import CrossTabHandler, GeneAndGenomeHandler
 
-
 import numpy as np
 
+# View functions
+# index - /tools/crosstab/
 def index(request):
     ip_address = request.META["REMOTE_ADDR"]
     file_recieved_note = None
@@ -32,6 +34,7 @@ def index(request):
             'form': empty_form
         })
 
+# genome_info - /tools/crosstab/<gene_name>
 def genome_info(request, gene_name):
     crosstab_gene, crosstab_genome, values = GeneAndGenomeHandler()
     index = crosstab_gene.index(gene_name)
@@ -48,6 +51,7 @@ def genome_info(request, gene_name):
             "genomes_wrt_gene": genomes_wrt_gene,
         })
 
+# about - /tools/crosstab/about/
 def about(request):
     return render(request, 'crosstab/about.html')
 

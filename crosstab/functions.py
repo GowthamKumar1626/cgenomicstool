@@ -16,10 +16,10 @@ class CrossTab:
         # self.corsstab.to_csv("./static/files/crosstab.csv")
         self.corsstab.to_csv("./cgenomicstool/static/files/crosstab.csv")
     def heatmap(self):
-        values = self.corsstab.iloc[:, :].values
+        self.values = self.corsstab.iloc[:, :].values
         plt.switch_backend("AGG")
         plt.figure(figsize=(10,8))
-        sns.heatmap(values, vmin=0, vmax=1, cmap="YlGnBu")
+        sns.heatmap(self.values, vmin=0, vmax=1, cmap="YlGnBu")
         plt.xlabel("Genes on X axis")
         plt.ylabel("Genome on y axis")
         # plt.savefig("./static/img/crosstab.png", bbox_inches = 'tight')

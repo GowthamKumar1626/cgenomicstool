@@ -8,4 +8,4 @@ class IPAddressAdmin(admin.ModelAdmin):
 @admin.register(ResultModel)
 class ResultAdmin(admin.ModelAdmin):
     # list_display = ["job_id", "image", "data"]
-    list_display = ["job_id", "image"]
+    list_display = ["job_id", "image", "data"]
