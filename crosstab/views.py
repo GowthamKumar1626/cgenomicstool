@@ -1,7 +1,7 @@
 # Imports
 from django.shortcuts import render
 from .form import UploadFileForm
-from .models import IPAddressModel
+from .models import IPAddressModel, ResultModel
 from .handlers import CrossTabHandler, GeneAndGenomeHandler
 
 import numpy as np
@@ -19,12 +19,18 @@ def index(request):
             crosstab_gene, crosstab_genome, values = GeneAndGenomeHandler()         # Getting gene, genome data
 
             # Record creation in database
-            IPAddressModel.objects.create(ip_address=ip_address)
+            ip_record = IPAddressModel.objects.create(ip_address=ip_address)
+            result = ResultModel.objects.get(job_id=ip_record.job_id)
+            image_path = "/media/"+str(result.image)
+            
+            # SESSION Variable
+            request.session['job_id'] = ip_record.job_id
 
             #Rendering HTTP content for POST request
             return render(request, 'crosstab/index.html', {
                 "form": filled_form,
                 "filled_form_note": file_recieved_note,
+                "image": image_path,
                 "gene": crosstab_gene,
                 "genome": crosstab_genome,
             })
@@ -36,6 +42,10 @@ def index(request):
 
 # genome_info - /tools/crosstab/<gene_name>
 def genome_info(request, gene_name):
+    # Getting job_id from SESSION variable
+    result = ResultModel.objects.get(job_id=request.session["job_id"])
+    image_path = "/media/"+str(result.image)
+    
     crosstab_gene, crosstab_genome, values = GeneAndGenomeHandler()
     index = crosstab_gene.index(gene_name)
     gene_genome_names = [crosstab_genome[pos] for pos in np.where(values[index]==1)[0]]
@@ -45,6 +55,7 @@ def genome_info(request, gene_name):
     return render(request, "crosstab/index.html", {
             "form": newForm,
             "filled_form_note": file_recieved_note,
+            "image": image_path,
             "gene": crosstab_gene,
             "genome": crosstab_genome,
             "gene_name": gene_name,

@@ -3,7 +3,7 @@ from .models import ResultModel, IPAddressModel
 
 @admin.register(IPAddressModel)
 class IPAddressAdmin(admin.ModelAdmin):
-    list_display = ["job_id", "ip_address"]
+    list_display = ["job_id", "ip_address", "created_on"]
 
 @admin.register(ResultModel)
 class ResultAdmin(admin.ModelAdmin):

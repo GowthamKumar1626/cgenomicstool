@@ -14,9 +14,10 @@ class IPAddressModel(models.Model):
         primary_key=True
     )
     ip_address = models.GenericIPAddressField(blank=False)
+    created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.job_id
+        return self.ip_address
 
 # Results like image and csv file is saved under this model
 class ResultModel(models.Model):
