@@ -1,5 +1,5 @@
 # Imports
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .form import UploadFileForm
 from .models import IPAddressModel, ResultModel
 from .handlers import CrossTabHandler, GeneAndGenomeHandler
@@ -10,56 +10,19 @@ import numpy as np
 # index - /tools/crosstab/
 def index(request):
     ip_address = request.META["REMOTE_ADDR"]
-    file_recieved_note = None
     if request.method == 'POST':                                                    # Checking for post method
         filled_form = UploadFileForm(request.POST, request.FILES)                   # Getting filled form details
         if filled_form.is_valid():                                                  # Validating filled form
-            file_recieved_note = "Successfully file recieved"                       # Success Note
             CrossTabHandler(filled_form.cleaned_data["file"])                       # Sending uploaded filepath to Hnadler
-            crosstab_gene, crosstab_genome, values = GeneAndGenomeHandler()         # Getting gene, genome data
-
             # Record creation in database
             ip_record = IPAddressModel.objects.create(ip_address=ip_address)
-            result = ResultModel.objects.get(job_id=ip_record.job_id)
-            image_path = "/media/"+str(result.image)
-            
             # SESSION Variable
             request.session['job_id'] = ip_record.job_id
-
-            #Rendering HTTP content for POST request
-            return render(request, 'crosstab/index.html', {
-                "form": filled_form,
-                "filled_form_note": file_recieved_note,
-                "image": image_path,
-                "gene": crosstab_gene,
-                "genome": crosstab_genome,
-            })
+            return redirect("/results/{}/overview/".format(request.session['job_id']))
     else:
         empty_form = UploadFileForm()
         return render(request, 'crosstab/index.html', {
             'form': empty_form
-        })
-
-# genome_info - /tools/crosstab/<gene_name>
-def genome_info(request, gene_name):
-    # Getting job_id from SESSION variable
-    result = ResultModel.objects.get(job_id=request.session["job_id"])
-    image_path = "/media/"+str(result.image)
-    
-    crosstab_gene, crosstab_genome, values = GeneAndGenomeHandler()
-    index = crosstab_gene.index(gene_name)
-    gene_genome_names = [crosstab_genome[pos] for pos in np.where(values[index]==1)[0]]
-    genomes_wrt_gene = list(zip(np.where(values[index]==1)[0], gene_genome_names))
-    file_recieved_note = "Successfully file recieved"
-    newForm = UploadFileForm()
-    return render(request, "crosstab/index.html", {
-            "form": newForm,
-            "filled_form_note": file_recieved_note,
-            "image": image_path,
-            "gene": crosstab_gene,
-            "genome": crosstab_genome,
-            "gene_name": gene_name,
-            "genomes_wrt_gene": genomes_wrt_gene,
         })
 
 # about - /tools/crosstab/about/

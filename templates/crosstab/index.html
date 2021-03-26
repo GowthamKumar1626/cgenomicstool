@@ -1,4 +1,4 @@
-{% extends './../base.html' %}
+{% extends 'base.html' %}
 <!-- Block Content -->
 {% block content %} {% load static %}
 <main class="col-md-9 ms-sm-auto col-lg-12 px-md-6">
@@ -18,115 +18,7 @@
             </div>
         </div>
     </div>
-    <div class="row p-2">
-        <div class="col-sm-5 h-50 d-inline-block">
-            <!-- if block -->
-            {% if filled_form_note %}
-            <div class="col-6">
-                <a href="#" class="btn btn-dark btn-lg w-40 disabled" role="button" aria-disabled="true">Crosstab Heatmap</a>
-            </div>
-            <hr>
-            <img src="{{ image }}" class="img-fluid float-right" alt="heatmap">
-        </div>
-        <div class="col-sm-7 h-50 d-inline-block">
-            <div class="row">
-                <div class="col-6">
-                    <a href="#" class="btn btn-dark btn-lg w-40 disabled" role="button" aria-disabled="true">Gene Encodings</a>
-                </div>
-                <div class="col-6">
-                    <a href="#" class="btn btn-dark btn-lg w-40 disabled" role="button" aria-disabled="true">Genome Encodings</a>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-6 overflow-auto" style="height: 480px;">
-                    <table class="table table-striped table-darkd">
-                        <tr>
-                            <th>Encoding</th>
-                            <th>Gene Name</th>
-                        </tr>
-                        {% for each in gene %}
-                        <tr>
-                            <td>{{ forloop.counter0 }}</td>
-                            <td>{{ each }}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-                <div class="col-6 overflow-auto" style="height: 480px;">
-                    <table class="table table-striped table-dark">
-                        <tr>
-                            <th>Encoding</th>
-                            <th>Genome Name</th>
-                        </tr>
-                        {% for each in genome %}
-                        <tr>
-                            <td>{{ forloop.counter0 }}</td>
-                            <td>{{ each }}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr>
-    <div class="row" style="height: 420px;">
-        <div class="col-sm-5 h-50 d-inline-block">
-            <div class="row p-2">
-                <div class="btn-group dropdown">
-                    <a class="btn btn-secondary btn-lg dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Select a gene to get genomes it present in
-                    </a>
-                    <ul class="dropdown-menu w-100 overflow-auto" style="height: 250px;" aria-labelledby="navbarDropdown">
-                        {% for each in gene %}
-                        <li>
-                            <a class="dropdown-item" href="/tools/crosstab/{{ each }}">
-                                <span class="btn btn-warning disabled">{{ forloop.counter0 }}</span> - {{ each }}
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-7 h-50 d-inline-block">
-            <div class="row p-2">
-                {% if genomes_wrt_gene %}
-                <p>Total no.of genomes contain gene {{ gene_name }}:
-                    <span class="btn btn-success disabled p-1">{{ genomes_wrt_gene|length }}</span>
-                </p>
-                <!-- <p>{{ gene_name }} number:
-                    <span class="badge badge-primary">{{ index }}</span>
-                </p> -->
-                <div>
-                    <ul class="overflow-auto list-unstyled" style="height: 290px;">
-                        {% for each in genomes_wrt_gene %}
-                        <li class="m-1">
-                            <span class="btn btn-warning disabled p-1">{{ each.0 }}</span> - {{ each.1 }}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                {% endif %}
-                <!--  -->
-            </div>
-        </div>
-    </div>
-    <!-- endif -->
-    {% endif %}
 </main>
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $("img").on("click", function(event) {
-            var x = event.pageX - this.offsetLeft;
-            var y = event.pageY - this.offsetTop;
-            alert("X Coordinate: " + x + " Y Coordinate: " + y);
-        });
-    });
-</script> -->
-
-
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --!>
 {% endblock %}
