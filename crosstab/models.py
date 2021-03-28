@@ -2,8 +2,12 @@ from django.db import models
 from django.core.files.images import ImageFile
 from django.core.files.uploadedfile import UploadedFile
 from django.db.models.signals import post_save, pre_delete
-
+from django.utils.timezone import activate
+import django
+from cgenomicstool import settings
 from .handlers import upload_location, genereate_id
+from datetime import date, datetime, timedelta
+activate(settings.TIME_ZONE)
 
 # Model for Saving IPAddress and corresponding JobID
 class IPAddressModel(models.Model):
@@ -14,10 +18,12 @@ class IPAddressModel(models.Model):
         primary_key=True
     )
     ip_address = models.GenericIPAddressField(blank=False)
-    created_on = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=200, blank=False, default=job_id)
+    created_on = models.DateTimeField(default=django.utils.timezone.now)
+    expires_on = models.DateTimeField(default=django.utils.timezone.now()+django.utils.timezone.timedelta(days=30))
 
     def __str__(self):
-        return self.ip_address
+        return self.job_id
 
 # Results like image and csv file is saved under this model
 class ResultModel(models.Model):

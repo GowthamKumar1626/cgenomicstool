@@ -21,8 +21,12 @@ def results(request):
     })
 
 def job_details(request, job_id):
+    request.session["job_id"] = job_id
+
     result = ResultModel.objects.get(job_id=job_id)
     image_path = "/media/"+str(result.image)
+
+    record = IPAddressModel.objects.get(job_id=job_id)
     
     dataset = pd.read_csv(result.data)
     crosstab_gene = list(dataset)[1:]
@@ -35,6 +39,7 @@ def job_details(request, job_id):
     return render(request, "pages/result_overview.html", {
                 "form": filled_form,
                 "filled_form_note": file_recieved_note,
+                "record": record,
                 "image": image_path,
                 "gene": crosstab_gene,
                 "genome": crosstab_genome,

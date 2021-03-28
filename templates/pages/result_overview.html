@@ -2,7 +2,7 @@
 <!-- Block Content -->
 {% block content %}
 <!-- Load static files -->
-{% load static %}
+{% load static %} {% csrf_token %} {% include 'partials/_result_details.html' %}
 <main class="col-md-9 ms-sm-auto col-lg-12 px-md-6">
     <div class="row p-2">
         <div class="col-sm-5 h-50 d-inline-block">
@@ -11,7 +11,7 @@
                     Heatmap
                 </a>
             </div>
-            <hr/>
+            <hr />
             <img src="{{ image }}" class="img-fluid float-right" alt="heatmap" />
         </div>
         <div class="col-sm-7 h-50 d-inline-block">
@@ -106,5 +106,23 @@
         </div>
     </div>
 </main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $('.delete-icon').on('click', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: `/delete/${this.name}/`,
+            data: {
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+
+            success: function() {
+                window.location.replace("/results/");
+            },
+        })
+    })
+</script>
 
 {% endblock %}

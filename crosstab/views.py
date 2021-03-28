@@ -10,12 +10,13 @@ import numpy as np
 # index - /tools/crosstab/
 def index(request):
     ip_address = request.META["REMOTE_ADDR"]
-    if request.method == 'POST':                                                    # Checking for post method
-        filled_form = UploadFileForm(request.POST, request.FILES)                   # Getting filled form details
-        if filled_form.is_valid():                                                  # Validating filled form
-            CrossTabHandler(filled_form.cleaned_data["file"])                       # Sending uploaded filepath to Hnadler
+    if request.method == 'POST':                                                            # Checking for post method
+        filled_form = UploadFileForm(request.POST, request.FILES)                           # Getting filled form details
+        if filled_form.is_valid():                                                          # Validating filled form
+            CrossTabHandler(filled_form.cleaned_data["file"])                               # Sending uploaded filepath to Hnadler
+            title = str(filled_form.cleaned_data["file"]).split(".")[0]                     
             # Record creation in database
-            ip_record = IPAddressModel.objects.create(ip_address=ip_address)
+            ip_record = IPAddressModel.objects.create(ip_address=ip_address, title=title)
             # SESSION Variable
             request.session['job_id'] = ip_record.job_id
             return redirect("/results/{}/overview/".format(request.session['job_id']))
