@@ -13,7 +13,8 @@ def index(request):
     if request.method == 'POST':                                                            # Checking for post method
         filled_form = UploadFileForm(request.POST, request.FILES)                           # Getting filled form details
         if filled_form.is_valid():                                                          # Validating filled form
-            CrossTabHandler(filled_form.cleaned_data["file"])                               # Sending uploaded filepath to Hnadler
+            CrossTabHandler(filled_form.cleaned_data["file"])     
+            GeneAndGenomeHandler()                          # Sending uploaded filepath to Hnadler
             title = str(filled_form.cleaned_data["file"]).split(".")[0]                     
             # Record creation in database
             ip_record = IPAddressModel.objects.create(ip_address=ip_address, title=title)

@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import csv
 
 class CrossTab:
     def __init__(self, filepath):
@@ -33,5 +34,18 @@ class GeneAndGenome:
         self.crosstab_genome = list(corsstab_dataframe["Genome"])
         values = corsstab_dataframe.iloc[:, 1:].values
         self.values = values.T
+    def encodings(self):
+        self.genome_encodigs = []
+        for i in range(len(self.values)):
+            self.genome_encodigs.append("\n".join([f"{i}-{self.crosstab_genome[i]}" for i in np.where(self.values[i]==1)[0]]))
+        self.gene_encodings = [f"{i}-{self.crosstab_gene[i]}" for i in range(len(self.crosstab_gene))]
+        self.encodings = list(zip(self.gene_encodings, self.genome_encodigs))
+        print("Hai")
+        with open("./cgenomicstool/static/files/encodings.csv", 'w') as myfile:
+            wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+            wr.writerow(["Gene", "Genomes"])
+            [wr.writerow([gene, genome]) for gene, genome in self.encodings]
+
+        myfile.close()
     def get_data(self):
         return (self.crosstab_gene, self.crosstab_genome, self.values)

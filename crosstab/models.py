@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.files.images import ImageFile
 from django.core.files.uploadedfile import UploadedFile
+from django.core.files.storage import FileSystemStorage
 from django.db.models.signals import post_save, pre_delete
 from django.utils.timezone import activate
 import django
@@ -31,6 +32,7 @@ class ResultModel(models.Model):
     job_id = models.ForeignKey(IPAddressModel, auto_created=True, on_delete=models.CASCADE)
     image = models.ImageField()
     data = models.FileField(upload_to=upload_location)
+    encodings = models.FileField(upload_to=upload_location)
 
 # Signals (Similar to Trigger) - When ever a JobID is created under a particular IP its corrsponding results are automatically saved under this model
 def create_resultmodel_record(sender, instance, created, **kwargs):
@@ -39,6 +41,7 @@ def create_resultmodel_record(sender, instance, created, **kwargs):
         record = ResultModel.objects.create(job_id=instance)
         record.image = ImageFile(open("./cgenomicstool/static/img/crosstab.png", "rb"))
         record.data = UploadedFile(open("./cgenomicstool/static/files/crosstab.csv", "rb"))
+        record.encodings = UploadedFile(open("./cgenomicstool/static/files/encodings.csv", "rb"))
         record.save()
 
 # After save command applied on IPAddressModel a signal is created to CRUD operation on ResultModel

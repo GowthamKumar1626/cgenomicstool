@@ -12,6 +12,7 @@ class GeneAndGenomeHandler:
     def __new__(cls):
         GG = GeneAndGenome()
         GG.read_crosstab()
+        GG.encodings()
         return GG.get_data()
 
 

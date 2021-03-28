@@ -38,9 +38,14 @@
         </sup>
     </h1>
     <hr> {% if results %}
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
+                <th>
+                    <span>
+                        <input type="checkbox" id="action-toggle">
+                    </span>
+                </th>
                 <th>JOB ID</th>
                 <th>TITLE</th>
                 <th>CREATED ON</th>
@@ -51,6 +56,11 @@
         <tbody>
             {% for each in results %}
             <tr>
+                <td>
+                    <span>
+                        <input type="checkbox" id="action-toggle">
+                    </span>
+                </td>
                 <td class="text-dark">
                     <a href="/results/{{ each.job_id }}/overview/" class="job-id text-black">
                         {{ each.job_id }}
