@@ -40,7 +40,7 @@ class GeneAndGenome:
             self.genome_encodigs.append("\n".join([f"{i}-{self.crosstab_genome[i]}" for i in np.where(self.values[i]==1)[0]]))
         self.gene_encodings = [f"{i}-{self.crosstab_gene[i]}" for i in range(len(self.crosstab_gene))]
         self.encodings = list(zip(self.gene_encodings, self.genome_encodigs))
-        print("Hai")
+        
         with open("./cgenomicstool/static/files/encodings.csv", 'w') as myfile:
             wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
             wr.writerow(["Gene", "Genomes"])

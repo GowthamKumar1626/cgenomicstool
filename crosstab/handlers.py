@@ -1,5 +1,6 @@
 from .functions import CrossTab, GeneAndGenome
 from datetime import datetime
+import numpy as np
 
 class CrossTabHandler:
     def __init__(self, filename):
@@ -14,6 +15,12 @@ class GeneAndGenomeHandler:
         GG.read_crosstab()
         GG.encodings()
         return GG.get_data()
+
+def encodings(crosstab_gene, values):
+    gene_genome_lengths = []
+    for i in range(len(values)):
+        gene_genome_lengths.append(len(np.where(values[i]==1)[0]))
+    return list(zip(crosstab_gene, gene_genome_lengths))
 
 
 def genereate_id():
