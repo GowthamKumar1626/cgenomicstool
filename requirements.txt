@@ -1,10 +1,9 @@
 absl-py==0.12.0
-Django==3.0.3
+Django
 matplotlib==3.3.4
 numpy==1.20.1
 pandas==1.2.3
 Pillow==8.1.2
-psycopg2==2.8.6
 psycopg2-binary==2.8.6
 pycodestyle==2.7.0
 pylint==2.7.2
