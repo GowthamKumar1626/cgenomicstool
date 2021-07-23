@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 
 from rest_framework import viewsets, permissions
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from tools.models import ToolsModel
 from tools.serializers import ToolsSerializer
@@ -22,4 +24,9 @@ class ToolsViewSet(viewsets.ModelViewSet):
     
     def perform_destroy(self, instance):
         return super().perform_destroy(instance)
-    
+
+@api_view(['POST'])
+def crosstab(request):
+    if request.method == "POST":
+        print(request.data)
+        return Response({"message": "Hello! crosstab"})
