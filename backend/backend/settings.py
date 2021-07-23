@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)6ft6bru!#7l6jq28dq$w%b(ur-ocec5r^(gscwyja^8&swuuq'
+SECRET_KEY = 'django-insecure-2qap*rc_*e*u3(jj_84qvl_nl=!=qxq_w5x$@b*_68&xq%vtr9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -26,7 +26,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'base.apps.BaseConfig',
     'tools.apps.ToolsConfig',
+    'results.apps.ResultsConfig',
 ]
 
 MIDDLEWARE = [
@@ -38,14 +40,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -116,13 +110,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL  = "/images/"
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = 'static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / 'static'
 ]
-
-MEDIA_ROOT = "static/images"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

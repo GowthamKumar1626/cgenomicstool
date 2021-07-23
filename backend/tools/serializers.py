@@ -1,17 +1,10 @@
-from django.core.validators import MaxLengthValidator
-from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import ToolsModel
 
-class ToolSerializer(serializers.HyperlinkedModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
+from rest_framework import serializers
+from tools.models import ToolsModel
+
+class ToolsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ToolsModel
-        fields = ('url', 'name', 'href', 'image', 'description', 'owner')
+        fields = ['url', 'name', 'image', 'description',]
 
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = User
-        fields = ('url', 'id', 'username', 'tools')
