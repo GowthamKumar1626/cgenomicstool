@@ -6,5 +6,5 @@ from tools.models import ToolsModel
 class ToolsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ToolsModel
-        fields = ['url', 'name', 'image', 'description',]
-
+        fields = ['url', 'name', 'image', 'description',]        
+        

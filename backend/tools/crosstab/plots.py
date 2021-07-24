@@ -1,8 +1,8 @@
-from crosstab.preprocessing import divide_chunks, categorization
-from crosstab.handlers import time_it, try_except
-from crosstab.Exceptions import *
-from crosstab.io import save_dataset
-from crosstab.meta_data import encode, load_meta_data
+from tools.crosstab.preprocessing import divide_chunks, categorization
+from tools.crosstab.handlers import time_it, try_except
+from tools.crosstab.Exceptions import *
+from tools.crosstab.io import save_dataset
+from tools.crosstab.meta_data import encode, load_meta_data
 
 import numpy as np
 import pandas
@@ -83,7 +83,7 @@ def plot(
     plot_settings()
 
     sns.heatmap(chunk_dataset, vmin=0, vmax=n_colors, cmap=cmap, cbar=False)
-    plt.savefig(f"./results/images/complete_plot.png", bbox_inches = 'tight')
+    plt.savefig(f"./static/images/complete_plot.png", bbox_inches = 'tight')
 
 
 @try_except
@@ -105,7 +105,7 @@ def plot_chunks(
 
         sns.heatmap(chunk_dataset, vmin=0, vmax=n_colors, cmap=cmap, cbar=False)
 
-        plt.savefig(f"./results/images/heatmap-{i+1}.png", bbox_inches = 'tight')
+        plt.savefig(f"./static/images/heatmap-{i+1}.png", bbox_inches = 'tight')
 
 
 
@@ -153,6 +153,6 @@ def plot_range(dataset, **kwargs):
 
     sns.heatmap(chunk_dataset, vmin=0, vmax=n_colors, cmap=cmap, cbar=False)
     range_plot_count += 1
-    plt.savefig(f"./results/images/range_plot-{range_plot_count}.png", bbox_inches = 'tight')
+    plt.savefig(f"./static/images/range_plot-{range_plot_count}.png", bbox_inches = 'tight')
 
     

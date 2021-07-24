@@ -1,9 +1,9 @@
 """
 This module includes all the methods required for preprocssing dataset provided by user
 """
-from crosstab.Exceptions import *
-from crosstab.handlers import *
-from crosstab.meta_data import *
+from tools.crosstab.Exceptions import *
+from tools.crosstab.handlers import *
+from tools.crosstab.meta_data import *
 
 import pandas as pd
 import pandas

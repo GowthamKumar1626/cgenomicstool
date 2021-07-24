@@ -1,4 +1,4 @@
-from crosstab.handlers import time_it, try_except
+from tools.crosstab.handlers import time_it, try_except
 
 import numpy as np
 import pandas as pd

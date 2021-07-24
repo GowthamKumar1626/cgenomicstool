@@ -1,6 +1,6 @@
 from typing import List
-from crosstab.handlers import try_except
-from crosstab.Exceptions import *
+from tools.crosstab.handlers import try_except
+from tools.crosstab.Exceptions import *
 
 import pandas as pd
 import pandas
