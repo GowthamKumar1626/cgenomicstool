@@ -8,7 +8,7 @@ from urllib import request
 from io import StringIO
 
 
-META_DATA_URL = "https://raw.githubusercontent.com/GowthamKumar1626/cgenomicstool/main/backend/static/meta%20data/meta_data.csv"
+META_DATA_URL = "https://raw.githubusercontent.com/GowthamKumar1626/cgenomicstool/main/backend/static/files/meta_data.csv"
 
 
 @try_except

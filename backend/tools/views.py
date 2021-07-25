@@ -12,6 +12,7 @@ from tools.serializers import ToolsSerializer
 from tools.permisions import IsOwnerOrReadOnly
 
 from tools import crosstab_test
+from results.models import ResultsModel
 
 class ToolsViewSet(viewsets.ModelViewSet):
     queryset = ToolsModel.objects.all()
@@ -34,9 +35,9 @@ class ToolsViewSet(viewsets.ModelViewSet):
 @csrf_exempt
 def crosstab(request):
     if request.method == "POST":
-        
-        crosstab_test.load_params(request.data)
-        
+        file_path = crosstab_test.load_params(request.data, request.user.id)
+        result = ResultsModel(upload_results=file_path, owner=request.user)
+        result.save()
         return Response(request.data)
         # return Response(request.data)
     return Response({"message": "Welcome to crosstab tool"})

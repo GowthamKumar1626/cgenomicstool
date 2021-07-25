@@ -23,6 +23,7 @@ class ResultsViewSet(viewsets.ModelViewSet):
         return Response(snippet.highlighted)
         
     def perform_create(self, serializer):
+        print(self.request.user.id)
         return super().perform_create(serializer)
     
     def perform_update(self, serializer):

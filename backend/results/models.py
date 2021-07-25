@@ -19,7 +19,7 @@ class ResultsModel(models.Model):
     result_id = models.CharField(primary_key=True, max_length = 200, editable=True, default=result_id_generator)
     upload_results = models.FileField(upload_to="files", null=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    tool_used = models.ForeignKey(ToolsModel, related_name='tools', null=True, on_delete=models.CASCADE)
+    # tool_used = models.ForeignKey(ToolsModel, related_name='tools', null=True, on_delete=models.CASCADE)
     owner = models.ForeignKey('auth.User', related_name='results', on_delete=models.CASCADE)
     
     def __str__(self) -> str:

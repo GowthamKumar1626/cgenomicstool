@@ -83,7 +83,7 @@ def plot(
     plot_settings()
 
     sns.heatmap(chunk_dataset, vmin=0, vmax=n_colors, cmap=cmap, cbar=False)
-    plt.savefig(f"./static/images/complete_plot.png", bbox_inches = 'tight')
+    plt.savefig(f"./static/results/images/complete_plot.png", bbox_inches = 'tight')
 
 
 @try_except
@@ -105,7 +105,7 @@ def plot_chunks(
 
         sns.heatmap(chunk_dataset, vmin=0, vmax=n_colors, cmap=cmap, cbar=False)
 
-        plt.savefig(f"./static/images/heatmap-{i+1}.png", bbox_inches = 'tight')
+        plt.savefig(f"./static/results/images/heatmap-{i+1}.png", bbox_inches = 'tight')
 
 
 
@@ -153,6 +153,6 @@ def plot_range(dataset, **kwargs):
 
     sns.heatmap(chunk_dataset, vmin=0, vmax=n_colors, cmap=cmap, cbar=False)
     range_plot_count += 1
-    plt.savefig(f"./static/images/range_plot-{range_plot_count}.png", bbox_inches = 'tight')
+    plt.savefig(f"./static/results/images/range_plot-{range_plot_count}.png", bbox_inches = 'tight')
 
     
