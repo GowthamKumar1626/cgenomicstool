@@ -41,9 +41,8 @@ def crosstab(request):
         return Response(request.data)
         # return Response(request.data)
     return Response({"message": "Welcome to crosstab tool"})
-    
-    
 """
+
 {
 "id":1,
 "genome_column_name": "genome",
