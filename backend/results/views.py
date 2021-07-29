@@ -37,3 +37,8 @@ class UserResultsViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    #     permissions.IsAdminUser,
+    # ]
+    

@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework.reverse import reverse
 
+from base.views import MyTokenObtainPairView, getUsers, getUserProfile, registerUser
 from tools.views import ToolsViewSet, crosstab
 from results.views import ResultsViewSet, UserResultsViewSet
 
@@ -57,7 +58,11 @@ def api_root(request, format=None):
     return Response({
         'tools': reverse('tools-list', request=request, format=format),
         'results': reverse('results-list', request=request, format=format),
-        'users': reverse('user-list', request=request, format=format),
+        'users': reverse('users', request=request, format=format),
+        'user-login': reverse('user-login', request=request, format=format),
+        'user-register': reverse('user-register', request=request, format=format),
+        'users-results': reverse('user-results-list', request=request, format=format),
+        'user-profile': reverse('user-profile', request=request, format=format),
         'crosstab': reverse('crosstab', request=request, format=format),
     })
 
@@ -65,13 +70,16 @@ def api_root(request, format=None):
 ## URLPATTERNS 
 
 urlpatterns = format_suffix_patterns([
-    path('users/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('', api_root),
     path('tools/', tools_list, name='tools-list'),
     path('tools/<str:pk>/', tool_detail, name='toolsmodel-detail'),
     path('results/', result_list, name='results-list'),
     path('results/<str:pk>/', result_detail, name='resultsmodel-detail'),
-    path('users/', user_list, name='user-list'),
+    path('users/', getUsers, name='users'),
+    path('users/login/', MyTokenObtainPairView.as_view(), name='user-login'),
+    path('users/register/', registerUser, name='user-register'),
+    path('users/profile', getUserProfile, name='user-profile'),
+    path('users/results/', user_list, name='user-results-list'),
     path('users/<int:pk>/', user_results, name='user-detail'),
     path('crosstab/', crosstab, name="crosstab")
 ])
