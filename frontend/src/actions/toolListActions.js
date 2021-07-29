@@ -15,8 +15,8 @@ export const listTools = () => async (dispatch) => {
     dispatch({
       type: TOOL_LIST_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
+        error.response && error.response.data.detail
+          ? error.response.data.detail
           : error.message,
     });
   }

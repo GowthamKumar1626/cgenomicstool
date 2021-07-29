@@ -25,7 +25,7 @@ function ToolDetailScreen({ match }) {
       setTool(data);
     }
     fetchTool();
-  }, []);
+  }, [match]);
 
   return <div>{renderSwitch(tool.name)}</div>;
 }

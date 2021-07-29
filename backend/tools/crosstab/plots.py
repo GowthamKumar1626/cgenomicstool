@@ -83,7 +83,7 @@ def plot(
     plot_settings()
 
     sns.heatmap(chunk_dataset, vmin=0, vmax=n_colors, cmap=cmap, cbar=False)
-    plt.savefig(f"./static/results/images/complete_plot.png", bbox_inches = 'tight')
+    plt.savefig(f"./static/results/images/complete_plot.png", bbox_inches = 'tight', dpi=300)
 
 
 @try_except
