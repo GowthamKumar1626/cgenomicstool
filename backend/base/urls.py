@@ -8,6 +8,10 @@ from rest_framework.reverse import reverse
 from tools.views import ToolsViewSet, crosstab
 from results.views import ResultsViewSet, UserResultsViewSet
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+)
+
 ## Tools Routes
 
 tools_list = ToolsViewSet.as_view({
@@ -61,6 +65,7 @@ def api_root(request, format=None):
 ## URLPATTERNS 
 
 urlpatterns = format_suffix_patterns([
+    path('users/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('', api_root),
     path('tools/', tools_list, name='tools-list'),
     path('tools/<str:pk>/', tool_detail, name='toolsmodel-detail'),

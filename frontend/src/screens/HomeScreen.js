@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ToolOverview from "../components/ToolOverview";
 import { listTools } from "../actions/toolListActions";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 
 function HomeScreen() {
   const dispatch = useDispatch();
@@ -16,9 +18,9 @@ function HomeScreen() {
     <div>
       <h1>Tools</h1>
       {loading ? (
-        <h3>Loading ....</h3>
+        <Loader />
       ) : error ? (
-        <h3>{error} </h3>
+        <Message variant="danger">{error}</Message>
       ) : (
         <Row>
           {tools.map((tool) => (
