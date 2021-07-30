@@ -3,6 +3,8 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import { toolsListReducer } from "./reducers/toolsListReducer";
+import { resultsListReducer } from "./reducers/resultsListReducer";
+
 import {
   userLoginReducer,
   userRegisterReducer,
@@ -16,6 +18,7 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  resultsList: resultsListReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

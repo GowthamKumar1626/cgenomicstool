@@ -5,6 +5,8 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 import { getUserDetails, updateUserProfile } from "../actions/userActions";
+import { listResults } from "../actions/resultsListActions";
+import { Link } from "react-router-dom";
 
 function ProfileScreen({ location, history }) {
   const [name, setName] = useState("");
@@ -24,6 +26,9 @@ function ProfileScreen({ location, history }) {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
+  const resultsList = useSelector((state) => state.resultsList);
+  const { results } = resultsList;
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
@@ -31,6 +36,7 @@ function ProfileScreen({ location, history }) {
       if (!user || !user.name || success || userInfo._id !== user._id) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails("profile"));
+        dispatch(listResults());
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -117,7 +123,15 @@ function ProfileScreen({ location, history }) {
           <Card.Header>
             <h3>Results</h3>
           </Card.Header>
-          <Card.Body></Card.Body>
+          <Card.Body>
+            {results.map((result) => (
+              <Row key={result.result_id} className="my-2">
+                <Link to={`/results/${result.result_id}`}>
+                  <h4>{result.result_id}</h4>
+                </Link>
+              </Row>
+            ))}
+          </Card.Body>
         </Card>
       </Col>
     </Row>

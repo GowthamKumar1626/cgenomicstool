@@ -15,30 +15,16 @@ class ResultsViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.IsAuthenticated,
         IsOwner,
-    ]
-    
-    @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
-    def highlight(self, request, *args, **kwargs):
-        snippet = self.get_object()
-        return Response(snippet.highlighted)
-        
-    def perform_create(self, serializer):
-        print(self.request.user.id)
-        return super().perform_create(serializer)
-    
-    def perform_update(self, serializer):
-        return super().perform_update(serializer)
-    
-    def perform_destroy(self, instance):
-        return super().perform_destroy(instance)
+    ]   
+    def get_queryset(self):
+        return ResultsModel.objects.filter(owner=self.request.user.id)
 
 
-class UserResultsViewSet(viewsets.ReadOnlyModelViewSet):
+class UserResultsViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     
-    # permission_classes = [
-    #     permissions.IsAuthenticated,
-    #     permissions.IsAdminUser,
-    # ]
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
     
