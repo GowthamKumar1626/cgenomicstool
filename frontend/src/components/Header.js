@@ -39,18 +39,34 @@ function Header() {
                 </Nav.Link>
               </LinkContainer>
 
-              <LinkContainer to="/results">
-                <Nav.Link>
-                  <i className="fas fa-poll-h"></i> Results
-                </Nav.Link>
-              </LinkContainer>
+              <NavDropdown title="Tools" id="navbarScrollingDropdown">
+                <LinkContainer to="/tools/crosstab">
+                  <NavDropdown.Item>Crosstab</NavDropdown.Item>
+                </LinkContainer>
+
+                <LinkContainer to="/tools/gene-organisation">
+                  <NavDropdown.Item>Gene Organisation</NavDropdown.Item>
+                </LinkContainer>
+
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action5">
+                  Something else here
+                </NavDropdown.Item>
+              </NavDropdown>
+
+              {userInfo ? null : (
+                <LinkContainer to="/results">
+                  <Nav.Link>
+                    <i className="fas fa-poll-h"></i> Results
+                  </Nav.Link>
+                </LinkContainer>
+              )}
 
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id="username">
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
-                  {console.log(userInfo)}
                   <LinkContainer to="/results">
                     <NavDropdown.Item>Results</NavDropdown.Item>
                   </LinkContainer>
@@ -67,21 +83,6 @@ function Header() {
                   </Nav.Link>
                 </LinkContainer>
               )}
-
-              <NavDropdown title="Tools" id="navbarScrollingDropdown">
-                <LinkContainer to="/tools/crosstab">
-                  <NavDropdown.Item>Crosstab</NavDropdown.Item>
-                </LinkContainer>
-
-                <LinkContainer to="/tools/gene-organisation">
-                  <NavDropdown.Item>Gene Organisation</NavDropdown.Item>
-                </LinkContainer>
-
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Something else here
-                </NavDropdown.Item>
-              </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>

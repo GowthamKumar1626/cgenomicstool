@@ -61,6 +61,15 @@ function ProfileScreen({ location, history }) {
       setMessage("");
     }
   };
+
+  const resultDownloadHandler = (e) => {
+    console.log("Download");
+  };
+
+  const resultDeleteHandler = (result_id) => {
+    console.log(result_id);
+  };
+
   return (
     <Row>
       <Col md={4}>
@@ -126,9 +135,21 @@ function ProfileScreen({ location, history }) {
           <Card.Body>
             {results.map((result) => (
               <Row key={result.result_id} className="my-2">
-                <Link to={`/results/${result.result_id}`}>
-                  <h4>{result.result_id}</h4>
-                </Link>
+                <Col md={3}>Result ID:</Col>
+                <Col md={7}>
+                  <Link to={`/results/${result.result_id}`}>
+                    <h5>{result.result_id}</h5>
+                  </Link>
+                </Col>
+                <Col md={1}>
+                  <i
+                    className="fas fa-download"
+                    onClick={resultDownloadHandler}
+                  ></i>
+                </Col>
+                <Col md={1}>
+                  <i className="fas fa-trash" onClick={resultDeleteHandler}></i>
+                </Col>
               </Row>
             ))}
           </Card.Body>

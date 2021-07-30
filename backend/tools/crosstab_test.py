@@ -18,6 +18,9 @@ def load_params(data, user_id):
         data_format = data["data_format"]
         chop_genome_name_at = data["chop_genome_name_at"]
         # phylo_path = "./datasets/phylo.newick"
+        if data["phylo_path"] == "null":
+            data["phylo_path"] = None
+        
         phylo_path = data["phylo_path"]
 
         dataset = load_dataset(data["upload_dataset"])
