@@ -8,6 +8,7 @@ import ToolDetailScreen from "./screens/ToolDetailScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import ResultsOverviewScreen from "./screens/ResultOverviewScreen";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
           <Route path="/profile" component={ProfileScreen} />
+          <Route path="/results/:id" component={ResultsOverviewScreen} />
         </Container>
       </main>
       <Footer />
