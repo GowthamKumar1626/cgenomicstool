@@ -1,3 +1,5 @@
+from results.serializers import ResultsSerializer
+from results.models import ResultsModel
 from django.contrib.auth.models import User
 from django.db.models import fields
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
