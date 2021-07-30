@@ -96,7 +96,7 @@ function ProfileScreen({ location, history }) {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </Form.Group>
-              <Form.Group controlId="passwordConfirm" className="my-1">
+              <Form.Group controlId="passwordConfirm" className="my-3">
                 <Form.Label>Re-type Password</Form.Label>
                 <Form.Control
                   type="password"
