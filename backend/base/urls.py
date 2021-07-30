@@ -61,8 +61,9 @@ def api_root(request, format=None):
         'users': reverse('users', request=request, format=format),
         'user-login': reverse('user-login', request=request, format=format),
         'user-register': reverse('user-register', request=request, format=format),
-        'users-results': reverse('user-results-list', request=request, format=format),
         'user-profile': reverse('user-profile', request=request, format=format),
+        'user-profile-update': reverse('user-update', request=request, format=format),
+        'users-results': reverse('user-results-list', request=request, format=format),
         'crosstab': reverse('crosstab', request=request, format=format),
     })
 
@@ -78,7 +79,8 @@ urlpatterns = format_suffix_patterns([
     path('users/', getUsers, name='users'),
     path('users/login/', MyTokenObtainPairView.as_view(), name='user-login'),
     path('users/register/', registerUser, name='user-register'),
-    path('users/profile', getUserProfile, name='user-profile'),
+    path('users/profile/', getUserProfile, name='user-profile'),
+    path('users/profile/update/', registerUser, name='user-profile-update'),
     path('users/results/', user_list, name='user-results-list'),
     path('users/<int:pk>/', user_results, name='user-detail'),
     path('crosstab/', crosstab, name="crosstab")

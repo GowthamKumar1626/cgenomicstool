@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import HomeScreen from "./screens/HomeScreen";
 import ToolDetailScreen from "./screens/ToolDetailScreen";
 import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" component={HomeScreen} exact />
           <Route path="/tools/:id" component={ToolDetailScreen} />
           <Route path="/login" component={LoginScreen} />
+          <Route path="/register" component={RegisterScreen} />
         </Container>
       </main>
       <Footer />
