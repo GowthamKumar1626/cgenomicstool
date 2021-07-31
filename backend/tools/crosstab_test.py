@@ -18,22 +18,22 @@ def load_params(data, user_id):
         data_format = data["data_format"]
         chop_genome_name_at = data["chop_genome_name_at"]
         # phylo_path = "./datasets/phylo.newick"
-        if data["phylo_path"] == "null":
+        if data["phylo_path"] == "null" or data["phylo_path"] == "":
             data["phylo_path"] = None
         
         phylo_path = data["phylo_path"]
 
         dataset = load_dataset(data["upload_dataset"])
         
-    except:
-        print("Error in params")
+    except Exception as error:
+        print("Error in params", error)
          
     dataset = extract_columns(dataset, chop_genome_name_at, genome_column, gene_column)
     if data_format.lower() == "cge":
         dataset = cge_to_patric(dataset)
-
+    
     crosstab = generate_crosstab(dataset, col_1=genome_column)
-
+    
     if phylo_path != None:
         genome_order = read_phylo(phylo_path)
         crosstab = reorder_dataset(crosstab, genome_order, genome_column)
@@ -52,6 +52,7 @@ def load_params(data, user_id):
     
     # zip_files("./static/results")
     # shutil.rmtree("./static/results/")
+    print("Filepath saved")
     
     return file_path
 

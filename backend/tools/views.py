@@ -7,12 +7,17 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 
+from tools.handlers import validate_data
 from tools.models import ToolsModel
 from tools.serializers import ToolsSerializer
 from tools.permisions import IsOwnerOrReadOnly
 
 from tools import crosstab_test
 from results.models import ResultsModel
+from results.serializers import ResultsSerializer
+from tools.handlers import extract_column_names
+
+import json
 
 class ToolsViewSet(viewsets.ModelViewSet):
     queryset = ToolsModel.objects.all()
@@ -35,12 +40,25 @@ class ToolsViewSet(viewsets.ModelViewSet):
 @csrf_exempt
 def crosstab(request):
     if request.method == "POST":
-        file_path = crosstab_test.load_params(request.data, request.user.id)
+        
+        data = validate_data(request)
+        
+        file_path = crosstab_test.load_params(data, request.user.id)
         result = ResultsModel(upload_results=file_path, owner=request.user)
         result.save()
+            
         return Response(request.data)
         # return Response(request.data)
     return Response({"message": "Welcome to crosstab tool"})
+
+
+@api_view(['GET', 'POST'])
+@csrf_exempt
+def columnNamesCrosstabDataset(request):
+    if request.method == "POST":
+        column_names = extract_column_names(request.FILES['dataset'])
+        return Response(json.dumps(column_names))
+    return Response({"message": "Welcome to crosstab tool column names finder"})
 """
 
 {

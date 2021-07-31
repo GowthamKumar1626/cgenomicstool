@@ -6,7 +6,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework.reverse import reverse
 
 from base.views import MyTokenObtainPairView, getUsers, getUserProfile, registerUser, updateUserProfile
-from tools.views import ToolsViewSet, crosstab
+from tools.views import ToolsViewSet, crosstab, columnNamesCrosstabDataset
 from results.views import ResultsViewSet, UserResultsViewSet
 
 from rest_framework_simplejwt.views import (
@@ -65,6 +65,8 @@ def api_root(request, format=None):
         'user-profile-update': reverse('user-profile-update', request=request, format=format),
         'users-results': reverse('user-results-list', request=request, format=format),
         'crosstab': reverse('crosstab', request=request, format=format),
+        'crosstab-process-inputs': reverse('crosstab', request=request, format=format),
+        
     })
 
 
@@ -83,5 +85,6 @@ urlpatterns = format_suffix_patterns([
     path('users/profile/update/', updateUserProfile, name='user-profile-update'),
     path('users/results/', user_list, name='user-results-list'),
     path('users/<int:pk>/', user_results, name='user-detail'),
-    path('crosstab/', crosstab, name="crosstab")
+    path('crosstab/', crosstab, name="crosstab"),
+    path('crosstab/process-inputs/', columnNamesCrosstabDataset, name="crosstab"),
 ])

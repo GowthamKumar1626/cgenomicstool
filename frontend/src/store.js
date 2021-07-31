@@ -15,6 +15,8 @@ import {
   userUpdateProfileReducer,
 } from "./reducers/userReducer";
 
+import { crosstabRequestReducer } from "./reducers/crosstabReducer";
+
 const reducer = combineReducers({
   toolList: toolsListReducer,
   userLogin: userLoginReducer,
@@ -23,6 +25,7 @@ const reducer = combineReducers({
   userUpdateProfile: userUpdateProfileReducer,
   resultsList: resultsListReducer,
   resultDetails: resultDetailsReducer,
+  crosstab: crosstabRequestReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

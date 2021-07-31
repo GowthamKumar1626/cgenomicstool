@@ -44,13 +44,7 @@ def load_dataset(
         path: FilePathOrBuffer
     ) -> pandas.core.frame :
     
-    extention = os.path.splitext(path)[1]
-    valid_extention = check_valid_extention(extention)
-
-    if valid_extention != True:
-        msg = f"Invalid file extension {extention}"
-        raise InvalidFileFormat(msg)
-
+    extention = str(path).split(".")[-1]
     dataset = read_dataset(path, extention)
     return dataset
 
