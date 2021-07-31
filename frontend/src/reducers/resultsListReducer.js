@@ -26,7 +26,7 @@ export const resultDetailsReducer = (state = { result: {} }, action) => {
       return { loading: true, ...state };
 
     case RESULT_DETAILS_SUCCESS:
-      return { loading: false, product: action.payload };
+      return { loading: false, result: action.payload };
 
     case RESULT_DETAILS_FAIL:
       return { loading: false, error: action.payload };
