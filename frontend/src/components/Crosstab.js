@@ -4,7 +4,6 @@ import { Row, Col, Form, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Loader from "./Loader";
 import Message from "./Message";
-import ResultsCard from "./ResultsCard";
 import {
   crosstabInputs,
   sendCrosstabRequest,
@@ -183,7 +182,14 @@ function Crosstab({ location, history }) {
                   </Message>
                   {error && <Message variant="danger">{error}</Message>}
                   {loading && <Loader />}
-
+                  {crosstabResult && (
+                    <Message
+                      variant="success"
+                      href={`/results/${crosstabResult.result_id}`}
+                    >
+                      Result is saved unser id: {crosstabResult.result_id}.
+                    </Message>
+                  )}
                   <Row>
                     <Col className="float-right">
                       <Button
@@ -201,11 +207,6 @@ function Crosstab({ location, history }) {
           </Card>
         </Col>
       </Row>
-      {!crosstabResult ? null : (
-        <Row className="my-3">
-          <ResultsCard result={crosstabResult} />
-        </Row>
-      )}
     </div>
   );
 }

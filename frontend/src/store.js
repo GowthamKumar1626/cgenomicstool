@@ -6,6 +6,7 @@ import { toolsListReducer } from "./reducers/toolsListReducer";
 import {
   resultsListReducer,
   resultDetailsReducer,
+  resultDeleteReducer,
 } from "./reducers/resultsListReducer";
 
 import {
@@ -22,12 +23,16 @@ import {
 
 const reducer = combineReducers({
   toolList: toolsListReducer,
+  // USER REDUCERS
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
+  // RESULTS REDUCERS
   resultsList: resultsListReducer,
   resultDetails: resultDetailsReducer,
+  resultDelete: resultDeleteReducer,
+  // CROSSTAB REDUCERS
   crosstab: crosstabRequestReducer,
   crosstabInputsList: crosstabInputsListReducer,
 });

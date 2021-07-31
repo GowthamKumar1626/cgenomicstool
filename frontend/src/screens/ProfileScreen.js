@@ -5,7 +5,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 import { getUserDetails, updateUserProfile } from "../actions/userActions";
-import { listResults } from "../actions/resultsListActions";
+import { listResults, deleteResult } from "../actions/resultsListActions";
 import { Link } from "react-router-dom";
 
 function ProfileScreen({ location, history }) {
@@ -29,6 +29,13 @@ function ProfileScreen({ location, history }) {
   const resultsList = useSelector((state) => state.resultsList);
   const { results } = resultsList;
 
+  const resultDelete = useSelector((state) => state.resultDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = resultDelete;
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
@@ -41,8 +48,9 @@ function ProfileScreen({ location, history }) {
         setName(user.name);
         setEmail(user.email);
       }
+      dispatch(listResults());
     }
-  }, [dispatch, history, userInfo, user, success]);
+  }, [dispatch, history, userInfo, user, success, successDelete]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -66,8 +74,10 @@ function ProfileScreen({ location, history }) {
     console.log("Download");
   };
 
-  const resultDeleteHandler = (result_id) => {
-    console.log(result_id);
+  const resultDeleteHandler = (id) => {
+    if (window.confirm("Are you sure you want to delete this result?")) {
+      dispatch(deleteResult(id));
+    }
   };
 
   return (
@@ -81,6 +91,7 @@ function ProfileScreen({ location, history }) {
             {message && <Message variant="danger">{message}</Message>}
             {error && <Message variant="danger">{error}</Message>}
             {loading && <Loader />}
+
             <Form onSubmit={submitHandler}>
               <Form.Group controlId="name" className="my-1">
                 <Form.Label>Name</Form.Label>
@@ -127,7 +138,9 @@ function ProfileScreen({ location, history }) {
           </Card.Body>
         </Card>
       </Col>
+      {loadingDelete && <Loader />}
       <Col md={8}>
+        {errorDelete && <Message variant="danger">{errorDelete}</Message>}
         <Card>
           <Card.Header>
             <h3>Results</h3>
@@ -148,7 +161,10 @@ function ProfileScreen({ location, history }) {
                   ></i>
                 </Col>
                 <Col md={1}>
-                  <i className="fas fa-trash" onClick={resultDeleteHandler}></i>
+                  <i
+                    className="fas fa-trash pe-auto"
+                    onClick={() => resultDeleteHandler(result.result_id)}
+                  ></i>
                 </Col>
               </Row>
             ))}

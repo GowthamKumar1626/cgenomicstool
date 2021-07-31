@@ -9,9 +9,8 @@ function Message({ variant, href, children }) {
       {href ? (
         <div style={{ display: "inline" }}>
           <LinkContainer to={href}>
-            <Alert.Link> Clik here </Alert.Link>
+            <Alert.Link>Clik here</Alert.Link>
           </LinkContainer>
-          to submit results
         </div>
       ) : (
         ""
