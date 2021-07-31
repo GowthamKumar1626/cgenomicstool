@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listResultDetails } from "../actions/resultsListActions";

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import CrosstabCard from "../components/CrosstabCard";
+import NewCrosstab from "../components/NewCrosstab";
 
 function renderSwitch(tool) {
   switch (tool) {
     case "Crosstab":
-      return <CrosstabCard />;
+      return <NewCrosstab />;
     case "Gene Organisation":
       return <p>{`Coming Soon .... `}</p>;
     default:

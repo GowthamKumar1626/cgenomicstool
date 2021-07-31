@@ -17,6 +17,7 @@ from results.models import ResultsModel
 from results.serializers import ResultsSerializer
 from tools.handlers import extract_column_names
 
+import pandas as pd
 import json
 
 class ToolsViewSet(viewsets.ModelViewSet):
@@ -47,7 +48,7 @@ def crosstab(request):
         result = ResultsModel(upload_results=file_path, owner=request.user)
         result.save()
             
-        return Response(request.data)
+        return Response({"saved_dataset": result.result_id})
         # return Response(request.data)
     return Response({"message": "Welcome to crosstab tool"})
 
@@ -56,8 +57,8 @@ def crosstab(request):
 @csrf_exempt
 def columnNamesCrosstabDataset(request):
     if request.method == "POST":
-        column_names = extract_column_names(request.FILES['dataset'])
-        return Response(json.dumps(column_names))
+        # column_names = extract_column_names()
+        return Response(list(pd.read_csv(request.FILES['dataset']).columns.values))
     return Response({"message": "Welcome to crosstab tool column names finder"})
 """
 

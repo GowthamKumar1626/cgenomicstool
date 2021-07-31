@@ -15,7 +15,10 @@ import {
   userUpdateProfileReducer,
 } from "./reducers/userReducer";
 
-import { crosstabRequestReducer } from "./reducers/crosstabReducer";
+import {
+  crosstabRequestReducer,
+  crosstabInputsListReducer,
+} from "./reducers/crosstabReducer";
 
 const reducer = combineReducers({
   toolList: toolsListReducer,
@@ -26,14 +29,20 @@ const reducer = combineReducers({
   resultsList: resultsListReducer,
   resultDetails: resultDetailsReducer,
   crosstab: crosstabRequestReducer,
+  crosstabInputsList: crosstabInputsListReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
 
+const crosstabInputsFromStorage = localStorage.getItem("crosstabInputs")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : null;
+
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
+  crosstabInputsList: { crosstabInputs: crosstabInputsFromStorage },
 };
 const middleware = [thunk];
 const store = createStore(
