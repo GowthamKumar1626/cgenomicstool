@@ -35,13 +35,9 @@ def load_params(data, user_id):
     crosstab = generate_crosstab(dataset, col_1=genome_column)
     
     if phylo_path != None:
+        print("Phylo Path Given")
         genome_order = read_phylo(phylo_path)
         crosstab = reorder_dataset(crosstab, genome_order, genome_column)
-    
-    # if os.path.exists("./static/results"):
-    #     shutil.rmtree("./static/results")
-    # os.makedirs("./static/results/csv/")
-    # os.makedirs("./static/results/images/")
     
     file_path = f"./static/files/crosstab_user_{user_id}_{datetime.datetime.now()}.csv"
     save_dataset(crosstab, file_path)

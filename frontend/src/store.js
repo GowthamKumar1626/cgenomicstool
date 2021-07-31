@@ -37,7 +37,7 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
   : null;
 
 const crosstabInputsFromStorage = localStorage.getItem("crosstabInputs")
-  ? JSON.parse(localStorage.getItem("userInfo"))
+  ? JSON.parse(localStorage.getItem("crosstabInputs"))
   : null;
 
 const initialState = {

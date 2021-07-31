@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Form, Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import ResultsCard from "../components/ResultsCard";
+import Loader from "./Loader";
+import Message from "./Message";
+import ResultsCard from "./ResultsCard";
 import {
   crosstabInputs,
   sendCrosstabRequest,
 } from "../actions/crosstabActions";
 
-function CrosstabCard({ location, history }) {
+function Crosstab({ location, history }) {
   const [dataset, setDataset] = useState("");
   const [genomeName, setGenomeName] = useState("");
   const [geneName, setGeneName] = useState("");
@@ -91,6 +91,9 @@ function CrosstabCard({ location, history }) {
             </Card.Footer>
           </Card>
         </Col>
+
+        {/* New card */}
+
         <Col md={8}>
           <Card>
             <Card.Header>Choose Inputs</Card.Header>
@@ -182,13 +185,15 @@ function CrosstabCard({ location, history }) {
                   {loading && <Loader />}
 
                   <Row>
-                    <Button
-                      variant="primary"
-                      type="submit"
-                      className="px-1 my-2"
-                    >
-                      Submit
-                    </Button>
+                    <Col className="float-right">
+                      <Button
+                        variant="primary"
+                        type="submit"
+                        className="px-1 my-2 w-50"
+                      >
+                        Submit
+                      </Button>
+                    </Col>
                   </Row>
                 </Form>
               )}
@@ -205,4 +210,4 @@ function CrosstabCard({ location, history }) {
   );
 }
 
-export default CrosstabCard;
+export default Crosstab;

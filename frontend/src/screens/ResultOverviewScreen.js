@@ -22,7 +22,9 @@ function ResultOverviewScreen({ match }) {
         <Card.Body>
           <Row>
             <Col md={3}>Created at</Col>
-            <Col md={9}>{result.created_at}</Col>
+            <Col md={9}>
+              <span>Date: {result.created_at} </span>
+            </Col>
           </Row>
         </Card.Body>
       </Card>

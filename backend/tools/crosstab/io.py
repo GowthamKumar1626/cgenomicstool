@@ -8,9 +8,6 @@ from pandas._typing import FilePathOrBuffer
 from ete3 import Tree
 import os
 
-
-
-@try_except
 def check_valid_extention(
         extention: str
     ) -> bool :
@@ -25,7 +22,6 @@ def check_valid_extention(
 
     return valid
 
-@try_except
 def read_dataset(
         path: FilePathOrBuffer, 
         extention: str
@@ -38,8 +34,6 @@ def read_dataset(
     elif 'xls' in extention:
         return pd.read_excel(path)
 
-
-@try_except
 def load_dataset(
         path: FilePathOrBuffer
     ) -> pandas.core.frame :
@@ -48,7 +42,6 @@ def load_dataset(
     dataset = read_dataset(path, extention)
     return dataset
 
-@try_except
 def read_phylo(
         path: str
     ) -> List :
@@ -82,9 +75,8 @@ def read_phylo(
             
         return genome_order
 
-@try_except
-def save_dataset(
-        dataset: pandas.core.frame, 
-        path: str
-    ) -> None :
-    dataset.to_csv(path)
+def save_dataset(dataset, path) -> None :
+    if type(dataset) == IndexError:
+        raise InvalidColumnNames("Please select proper column names")
+    else:
+        dataset.to_csv(path)

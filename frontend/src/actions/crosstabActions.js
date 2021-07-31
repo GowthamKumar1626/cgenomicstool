@@ -33,6 +33,7 @@ export const crosstabInputs = (filename) => async (dispatch, getState) => {
     );
 
     dispatch({ type: CROSSTAB_INPUTS_SUCCESS, payload: data });
+
     localStorage.setItem("crosstabInputs", JSON.stringify(data));
   } catch (error) {
     dispatch({
@@ -97,6 +98,7 @@ export const sendCrosstabRequest =
 
       //   localStorage.setItem("crosstabResult", JSON.stringify(data));
     } catch (error) {
+      console.log(error);
       dispatch({
         type: CROSSTAB_INPUT_SEND_FAIL,
         payload:

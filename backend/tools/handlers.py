@@ -1,15 +1,28 @@
 import pandas as pd
 
 def validate_data(request):
-
-    genome_column = request.data["genome_column_name"]    
-    gene_column = request.data["gene_column_name"]
-    data_format = request.data["data_format"]
+    
+    
+    if request.data["genome_column_name"] == "":
+        raise ValueError("Genome column value required")
+    else:
+        genome_column = request.data["genome_column_name"]
+        
+    if request.data["gene_column_name"] == "":
+        raise ValueError("Gene column value required")
+    else: 
+        gene_column = request.data["gene_column_name"]
+        
+    if request.data["data_format"] == "":
+        raise ValueError("Select a value either CGE or PATRIC")
+    else:
+        data_format = request.data["data_format"]
+        
     try:
         chop_genome_name_at = request.data["chop_genome_name_at"]
     except Exception as e:
         chop_genome_name_at = ""
-        print(f"Set to null: {e}")
+        print(f"chop_genome_name_at Set to null: {e}")
         
     dataset = request.FILES['dataset']
     

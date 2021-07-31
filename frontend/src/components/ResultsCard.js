@@ -24,8 +24,8 @@ function ResultsCard({ result }) {
         <Col md={8}>
           <Row>
             <h5>ID-323523523</h5>
-            <Link to={`/results/${result.saved_dataset}`}>
-              <h5>{result.saved_dataset} </h5>
+            <Link to={`/results/${result.result_id}`}>
+              <h5>{result.result_id} </h5>
             </Link>
             <Row>
               <Col md={1}>
