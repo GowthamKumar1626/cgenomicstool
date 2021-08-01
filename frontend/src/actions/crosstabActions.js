@@ -83,14 +83,6 @@ export const sendCrosstabRequest =
 
       const { data } = await axios.post("/crosstab/", form_data, config);
 
-      // {
-      //   genome_column_name: genome_column_name,
-      //   gene_column_name: gene_column_name,
-      //   chop_genome_name_at: chop_genome_name_at,
-      //   data_format: data_format,
-      //   dataset: dataset,
-      //   phylo_path: phylo_path,
-      // }
       dispatch({
         type: CROSSTAB_INPUT_SEND_SUCCESS,
         payload: data,
