@@ -7,11 +7,8 @@ from rest_framework.reverse import reverse
 
 from base.views import MyTokenObtainPairView, getUsers, getUserProfile, registerUser, updateUserProfile
 from tools.views import ToolsViewSet, crosstab, columnNamesCrosstabDataset
-from results.views import ResultsViewSet, UserResultsViewSet
+from results.views import ResultsViewSet, UserResultsViewSet, FileDownloadListAPIView
 
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-)
 
 ## Tools Routes
 
@@ -78,6 +75,7 @@ urlpatterns = format_suffix_patterns([
     path('tools/<str:pk>/', tool_detail, name='toolsmodel-detail'),
     path('results/', result_list, name='results-list'),
     path('results/<str:pk>/', result_detail, name='resultsmodel-detail'),
+    path('results/<str:id>/download/', FileDownloadListAPIView.as_view(), name="result-download"),
     path('users/', getUsers, name='users'),
     path('users/login/', MyTokenObtainPairView.as_view(), name='user-login'),
     path('users/register/', registerUser, name='user-register'),

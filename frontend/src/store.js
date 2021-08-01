@@ -7,6 +7,7 @@ import {
   resultsListReducer,
   resultDetailsReducer,
   resultDeleteReducer,
+  resultDownloadReducer,
 } from "./reducers/resultsListReducer";
 
 import {
@@ -32,6 +33,7 @@ const reducer = combineReducers({
   resultsList: resultsListReducer,
   resultDetails: resultDetailsReducer,
   resultDelete: resultDeleteReducer,
+  resultDownload: resultDownloadReducer,
   // CROSSTAB REDUCERS
   crosstab: crosstabRequestReducer,
   crosstabInputsList: crosstabInputsListReducer,

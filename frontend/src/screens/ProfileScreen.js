@@ -5,7 +5,11 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 import { getUserDetails, updateUserProfile } from "../actions/userActions";
-import { listResults, deleteResult } from "../actions/resultsListActions";
+import {
+  listResults,
+  deleteResult,
+  downloadResult,
+} from "../actions/resultsListActions";
 import { Link } from "react-router-dom";
 
 function ProfileScreen({ location, history }) {
@@ -70,8 +74,8 @@ function ProfileScreen({ location, history }) {
     }
   };
 
-  const resultDownloadHandler = (e) => {
-    console.log("Download");
+  const resultDownloadHandler = (id) => {
+    dispatch(downloadResult(id));
   };
 
   const resultDeleteHandler = (id) => {
@@ -148,16 +152,20 @@ function ProfileScreen({ location, history }) {
           <Card.Body>
             {results.map((result) => (
               <Row key={result.result_id} className="my-2">
-                <Col md={3}>Result ID:</Col>
                 <Col md={7}>
                   <Link to={`/results/${result.result_id}`}>
                     <h5>{result.result_id}</h5>
                   </Link>
                 </Col>
+                <Col md={3}>
+                  Date: {result.created_at.split("T")[0]}
+                  <br></br>
+                  Time: {result.created_at.split("T")[1].slice(1, 8)}
+                </Col>
                 <Col md={1}>
                   <i
                     className="fas fa-download"
-                    onClick={resultDownloadHandler}
+                    onClick={() => resultDownloadHandler(result.result_id)}
                   ></i>
                 </Col>
                 <Col md={1}>

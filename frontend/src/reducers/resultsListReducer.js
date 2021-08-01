@@ -1,13 +1,20 @@
 import {
+  //
   RESULT_LIST_REQUEST,
   RESULT_LIST_SUCCESS,
   RESULT_LIST_FAIL,
+  //
   RESULT_DETAILS_REQUEST,
   RESULT_DETAILS_SUCCESS,
   RESULT_DETAILS_FAIL,
+  //
   RESULT_DELETE_REQUEST,
   RESULT_DELETE_SUCCESS,
   RESULT_DELETE_FAIL,
+  //
+  RESULT_DOWNLOAD_REQUEST,
+  RESULT_DOWNLOAD_SUCCESS,
+  RESULT_DOWNLOAD_FAIL,
 } from "../constants/resultsConstants";
 
 export const resultsListReducer = (state = { results: [] }, action) => {
@@ -50,6 +57,19 @@ export const resultDeleteReducer = (state = {}, action) => {
     case RESULT_DELETE_FAIL:
       return { loading: false, error: action.payload };
 
+    default:
+      return state;
+  }
+};
+
+export const resultDownloadReducer = (state = {}, action) => {
+  switch (action.type) {
+    case RESULT_DOWNLOAD_REQUEST:
+      return { loading: true };
+    case RESULT_DOWNLOAD_SUCCESS:
+      return { loading: false, success: true };
+    case RESULT_DOWNLOAD_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

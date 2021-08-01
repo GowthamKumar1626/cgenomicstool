@@ -46,7 +46,7 @@ def crosstab(request):
             result = ResultsModel(upload_results=file_path, owner=request.user)
             result.save()
                 
-            return Response({"result_id": result.result_id})
+            return Response({"result_id": result.result_id, "created_at": result.created_at, "upload_results": result.upload_results})
         except Exception as error:
             return Response({"detail": str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         # return Response(request.data)

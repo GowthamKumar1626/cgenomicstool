@@ -50,5 +50,5 @@ def load_params(data, user_id):
     # shutil.rmtree("./static/results/")
     print("Filepath saved")
     
-    return file_path
+    return file_path[9:]
 

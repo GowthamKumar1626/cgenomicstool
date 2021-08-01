@@ -14,7 +14,7 @@ def result_id_generator():
 class ResultsModel(models.Model):
     class Meta:
         verbose_name_plural = 'ResultsModel'
-        ordering = ('result_id', )
+        ordering = ('-created_at', )
     
     result_id = models.CharField(primary_key=True, max_length = 200, editable=True, default=result_id_generator)
     upload_results = models.FileField(upload_to="files", null=True)

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listResultDetails } from "../actions/resultsListActions";
+import { Link } from "react-router-dom";
 
 function ResultOverviewScreen({ match }) {
   const resultDetails = useSelector((state) => state.resultDetails);
@@ -25,6 +26,11 @@ function ResultOverviewScreen({ match }) {
             <Col md={9}>
               <span>Date: {result.created_at} </span>
             </Col>
+          </Row>
+          <Row>
+            <Link to={result.upload_results}>
+              <Col md={3}>{result.upload_results}</Col>
+            </Link>
           </Row>
         </Card.Body>
       </Card>
