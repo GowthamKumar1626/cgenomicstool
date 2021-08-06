@@ -1,4 +1,4 @@
-import os, shutil
+import pandas as pd
 from tools.crosstab.plots import plot, plot_chunks, plot_range
 from tools.crosstab.io import load_dataset, save_dataset, read_phylo
 from tools.crosstab.preprocessing import cge_to_patric, extract_columns, categorization, reorder_dataset
@@ -41,6 +41,7 @@ def load_params(data, user_id):
     
     file_path = f"./static/files/crosstab_user_{user_id}_{datetime.datetime.now()}.csv"
     save_dataset(crosstab, file_path)
+    crosstab_json = pd.read_csv(file_path).to_html()
     # dataset = crosstab.copy()
     
     # plot(dataset)
@@ -50,5 +51,5 @@ def load_params(data, user_id):
     # shutil.rmtree("./static/results/")
     print("Filepath saved")
     
-    return file_path[9:]
+    return (file_path[9:], crosstab_json)
 

@@ -42,8 +42,8 @@ def crosstab(request):
         try:
             data = validate_data(request)
             
-            file_path = crosstab_test.load_params(data, request.user.id)
-            result = ResultsModel(upload_results=file_path, owner=request.user)
+            file_path, crosstab_json = crosstab_test.load_params(data, request.user.id)
+            result = ResultsModel(upload_results=crosstab_json, owner=request.user)
             result.save()
                 
             return Response({"result_id": result.result_id, "created_at": result.created_at, "upload_results": result.upload_results})
