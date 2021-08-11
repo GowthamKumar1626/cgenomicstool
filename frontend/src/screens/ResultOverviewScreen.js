@@ -71,7 +71,12 @@ function ResultOverviewScreen({ match, history, location }) {
         <Col md={9}>
           <Card>
             <Card.Header>HeatMap</Card.Header>
-            <Card.Body></Card.Body>
+            <Card.Body>
+              <Card.Img
+                src={result.image}
+                className="crosstab-image overflow-auto"
+              />
+            </Card.Body>
           </Card>
         </Col>
       </Row>

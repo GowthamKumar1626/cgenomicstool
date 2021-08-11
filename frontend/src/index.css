@@ -7,3 +7,8 @@ main {
   height: 20vw;
   object-fit: cover;
 }
+
+.crosstab-image {
+  height: 800px;
+  width: 600px;
+}

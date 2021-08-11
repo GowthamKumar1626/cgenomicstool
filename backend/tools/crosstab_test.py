@@ -10,6 +10,11 @@ import datetime
 ssl._create_default_https_context = ssl._create_unverified_context
 
 
+def result_id_generator():
+# file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return f"result-id-{datetime.datetime.now()}"
+
+
 def load_params(data, user_id):
     
     try: 
@@ -39,17 +44,20 @@ def load_params(data, user_id):
         genome_order = read_phylo(phylo_path)
         crosstab = reorder_dataset(crosstab, genome_order, genome_column)
     
-    file_path = f"./static/files/crosstab_user_{user_id}_{datetime.datetime.now()}.csv"
+    result_stamp = result_id_generator()
+    print(result_stamp)
+    file_path = f"./static/files/{result_stamp}.csv"
+    image_path = f"./static/images/{result_stamp}.jpeg"
     save_dataset(crosstab, file_path)
-    crosstab_json = pd.read_csv(file_path).to_html()
-    # dataset = crosstab.copy()
+    # crosstab_json = pd.read_csv(file_path).to_html() 
+    dataset = crosstab.copy()
     
-    # plot(dataset)
+    plot(dataset, image_path)
     # plot_chunks(crosstab, n_gene_per_plot=30)
     
     # zip_files("./static/results")
     # shutil.rmtree("./static/results/")
     print("Filepath saved")
     
-    return (file_path[9:], crosstab_json)
+    return result_stamp
 

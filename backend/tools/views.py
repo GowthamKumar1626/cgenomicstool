@@ -1,5 +1,4 @@
-from django.contrib.auth.models import User
-from django.http.response import JsonResponse
+from django.core.files.images import ImageFile
 from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework import viewsets, permissions, status
@@ -41,12 +40,13 @@ def crosstab(request):
     if request.method == "POST":
         try:
             data = validate_data(request)
+            result_stamp = crosstab_test.load_params(data, request.user.id)
             
-            file_path, crosstab_json = crosstab_test.load_params(data, request.user.id)
-            result = ResultsModel(upload_results=crosstab_json, owner=request.user)
+            
+            result = ResultsModel.objects.create(result_id=result_stamp, image=ImageFile(open(f"./static/images/{result_stamp}.jpeg", "rb")), owner=request.user)
             result.save()
-                
-            return Response({"result_id": result.result_id, "created_at": result.created_at, "upload_results": result.upload_results})
+            
+            return Response({"result_id": result.result_id, "created_at": result.created_at})
         except Exception as error:
             return Response({"detail": str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         # return Response(request.data)

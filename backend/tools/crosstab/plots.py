@@ -73,7 +73,8 @@ def plot_settings():
 
 @try_except
 def plot(
-        dataset: pandas.core.frame
+        dataset: pandas.core.frame,
+        path: str
     ) -> None:
     global cmap, n_colors
 
@@ -83,7 +84,8 @@ def plot(
     plot_settings()
 
     sns.heatmap(chunk_dataset, vmin=0, vmax=n_colors, cmap=cmap, cbar=False)
-    plt.savefig(f"./static/results/images/complete_plot.png", bbox_inches = 'tight', dpi=300)
+    # plt.savefig(f"./static/results/images/complete_plot.png", bbox_inches = 'tight', dpi=300)
+    plt.savefig(path, bbox_inches = 'tight', dpi=300)
 
 
 @try_except
