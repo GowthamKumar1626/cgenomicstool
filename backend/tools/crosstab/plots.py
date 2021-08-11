@@ -10,7 +10,7 @@ import pandas
 import os
 
 import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.colors import ListedColormap
 import seaborn as sns
 
 import matplotlib as mpl
@@ -40,8 +40,47 @@ def pre_plot():
     meta_labels = ["Not present"] + gene_class + ["Not found"]
     n_colors = len(meta_labels)
 
-    cmap = sns.cubehelix_palette(start=0, rot=n_colors, light=1, n_colors=n_colors)
-    meta_colors = list(cmap.as_hex())
+    # cmap = sns.cubehelix_palette(start=0, rot=n_colors, light=1, n_colors=n_colors)
+    
+    meta_colors = [
+        '#FFFFFF',
+        '#778899',
+        '#0000FF',
+        '#FA8072',
+        '#FF0000',
+        '#808000',
+        '#00FFFF',
+        '#DDA0DD',
+        '#8A2BE2',
+        '#8B008B',
+        '#8D0000',
+        '#FF00FF',
+        '#008000',
+        '#00FF00',
+        '#66CDAA',
+        '#4169E1',
+        '#000080',
+        '#0000CD',
+        '#4B0082',
+        '#FF1493',
+        '#C71585',
+        '#DB7093',
+        '#FFC0CB',
+        '#8B4513',
+        '#B8860B',
+        '#D2691E',
+        '#F4A460',
+        '#F5DEB3',
+        '#008080',
+        '#696969',
+        '#00CED1',
+        '#FFFF00',
+        '#2F4F4F',
+        '#5F9EA0',
+        '#3C1A2B',
+    ]
+    
+    cmap = ListedColormap(sns.color_palette(meta_colors).as_hex())
 
 
 def generate_labels_colors(

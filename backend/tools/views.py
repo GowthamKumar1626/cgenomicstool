@@ -58,7 +58,10 @@ def crosstab(request):
 def columnNamesCrosstabDataset(request):
     if request.method == "POST":
         # column_names = extract_column_names()
-        return Response(list(pd.read_csv(request.FILES['dataset']).columns.values))
+        if str(request.FILES['dataset']).count("sv")>0:
+            return Response(list(pd.read_csv(request.FILES['dataset']).columns.values))
+        else:
+            return Response(list(pd.read_excel(request.FILES['dataset']).columns.values))
     return Response({"message": "Welcome to crosstab tool column names finder"})
 """
 

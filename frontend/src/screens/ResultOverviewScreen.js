@@ -3,6 +3,7 @@ import { Card, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listResultDetails } from "../actions/resultsListActions";
 import { codes } from "../constants/GeneClasses";
+
 // import { Markup } from "interweave";
 import Loader from "../components/Loader";
 
