@@ -8,18 +8,18 @@ from urllib import request
 from io import StringIO
 
 
-META_DATA_URL = "https://raw.githubusercontent.com/GowthamKumar1626/cgenomicstool/main/backend/static/files/meta_data.csv"
+META_DATA_URL = "https://raw.githubusercontent.com/GowthamKumar1626/cgenomicstool/main/backend/static/meta-data/meta_data.csv"
 
-
-@try_except
 def get_data():
-    response = request.urlopen(META_DATA_URL)
-    data = response.read()
-    text = data.decode('utf-8')
-    
-    return StringIO(text)
+    try:
+        response = request.urlopen(META_DATA_URL)
+        data = response.read()
+        text = data.decode('utf-8')
 
-@try_except
+        return StringIO(text)
+    except:
+        raise ValueError("Problem in requesting meta-data. Please contact admin")
+
 def load_meta_data():
     text = get_data()
     dataset = pd.read_csv(text, sep=',')

@@ -17,7 +17,7 @@ class ResultsModel(models.Model):
         ordering = ('-created_at', )
     
     result_id = models.CharField(primary_key=True, max_length = 200, editable=True, default=result_id_generator)
-    upload_results = models.JSONField(default=dict)
+    upload_results = models.FileField(upload_to="files", null=True)
     image = models.FileField(upload_to='images', null=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     # tool_used = models.ForeignKey(ToolsModel, related_name='tools', null=True, on_delete=models.CASCADE)

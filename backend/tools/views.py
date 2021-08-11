@@ -43,7 +43,7 @@ def crosstab(request):
             result_stamp = crosstab_test.load_params(data, request.user.id)
             
             
-            result = ResultsModel.objects.create(result_id=result_stamp, image=ImageFile(open(f"./static/images/{result_stamp}.jpeg", "rb")), owner=request.user)
+            result = ResultsModel.objects.create(result_id=result_stamp, upload_results=f"files/{result_stamp}.csv", image=ImageFile(open(f"./static/images/{result_stamp}.jpeg", "rb")), owner=request.user)
             result.save()
             
             return Response({"result_id": result.result_id, "created_at": result.created_at})

@@ -69,9 +69,6 @@ def plot_settings():
     plt.legend(handles=handles, ncol=2, bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
         mode="expand", borderaxespad=0.)
 
-
-
-@try_except
 def plot(
         dataset: pandas.core.frame,
         path: str
