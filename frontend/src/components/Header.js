@@ -27,7 +27,7 @@ function Header() {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <LinkContainer to="/home">
+              <LinkContainer to="/">
                 <Nav.Link>
                   <i className="fas fa-home"></i> Home
                 </Nav.Link>
@@ -67,9 +67,9 @@ function Header() {
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to="/results">
+                  {/* <LinkContainer to="/results">
                     <NavDropdown.Item>Results</NavDropdown.Item>
-                  </LinkContainer>
+                  </LinkContainer> */}
 
                   <NavDropdown.Divider />
                   <NavDropdown.Item onClick={logoutHandler}>
