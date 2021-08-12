@@ -20,6 +20,7 @@ import {
 import {
   crosstabRequestReducer,
   crosstabInputsListReducer,
+  crosstabPlotReducer,
 } from "./reducers/crosstabReducer";
 
 const reducer = combineReducers({
@@ -37,6 +38,7 @@ const reducer = combineReducers({
   // CROSSTAB REDUCERS
   crosstab: crosstabRequestReducer,
   crosstabInputsList: crosstabInputsListReducer,
+  crosstabPlot: crosstabPlotReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

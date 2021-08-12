@@ -5,6 +5,9 @@ import {
   CROSSTAB_INPUT_SEND_REQUEST,
   CROSSTAB_INPUT_SEND_SUCCESS,
   CROSSTAB_INPUT_SEND_FAIL,
+  CROSSTAB_IMAGE_FAIL,
+  CROSSTAB_IMAGE_REQUEST,
+  CROSSTAB_IMAGE_SUCCESS,
 } from "../constants/crosstabConstants";
 import axios from "axios";
 
@@ -100,3 +103,38 @@ export const sendCrosstabRequest =
       });
     }
   };
+
+export const crosstabPlot = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: CROSSTAB_IMAGE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/crosstab/plot/${id}/`, config);
+
+    dispatch({
+      type: CROSSTAB_IMAGE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: CROSSTAB_IMAGE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};

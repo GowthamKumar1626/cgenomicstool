@@ -6,7 +6,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework.reverse import reverse
 
 from base.views import MyTokenObtainPairView, getUsers, getUserProfile, registerUser, updateUserProfile
-from tools.views import ToolsViewSet, crosstab, columnNamesCrosstabDataset
+from tools.views import ToolsViewSet, crosstab, columnNamesCrosstabDataset, crosstabPlot
 from results.views import ResultsViewSet, UserResultsViewSet, FileDownloadListAPIView
 
 
@@ -63,7 +63,7 @@ def api_root(request, format=None):
         'users-results': reverse('user-results-list', request=request, format=format),
         'crosstab': reverse('crosstab', request=request, format=format),
         'crosstab-process-inputs': reverse('crosstab', request=request, format=format),
-        
+        'crosstab-plot': reverse('crosstab-plot', request=request, format=format),
     })
 
 
@@ -85,4 +85,5 @@ urlpatterns = format_suffix_patterns([
     path('users/<int:pk>/', user_results, name='user-detail'),
     path('crosstab/', crosstab, name="crosstab"),
     path('crosstab/process-inputs/', columnNamesCrosstabDataset, name="crosstab"),
+    path('crosstab/plot/<str:pk>/', crosstabPlot, name='crosstab-plot')
 ])

@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listResultDetails } from "../actions/resultsListActions";
-import { codes } from "../constants/GeneClasses";
+// import { crosstabPlot } from "../actions/crosstabActions";
+// import { codes } from "../constants/GeneClasses";
 
 // import { Markup } from "interweave";
 import Loader from "../components/Loader";
@@ -14,12 +15,16 @@ function ResultOverviewScreen({ match, history, location }) {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  // const crosstabPlotDetails = useSelector((state) => state.crosstabPlot);
+  // const { loading: loadingPlot,crosstabImage: crosstabImage } = crosstabPlotDetails;
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     }
     dispatch(listResultDetails(match.params.id));
+    // dispatch(crosstabPlot(match.params.id));
     // const dataframeElement = (document.getElementsByClassName(
     //   "dataframe"
     // )[0].innerHTML = result.upload_results);
@@ -43,7 +48,16 @@ function ResultOverviewScreen({ match, history, location }) {
           </Row>
         </Card.Body>
       </Card>
-      <Row>
+      <Card className="my-3">
+        <Card.Header>HeatMap</Card.Header>
+        <Card.Body>
+          <Card.Img
+            src={result.image}
+            className="crosstab-image overflow-auto"
+          />
+        </Card.Body>
+      </Card>
+      {/* <Row>
         <Col md={3}>
           <Card>
             <Card.Header>Color Mappings</Card.Header>
@@ -69,18 +83,7 @@ function ResultOverviewScreen({ match, history, location }) {
             </Card.Body>
           </Card>
         </Col>
-        <Col md={9}>
-          <Card>
-            <Card.Header>HeatMap</Card.Header>
-            <Card.Body>
-              <Card.Img
-                src={result.image}
-                className="crosstab-image overflow-auto"
-              />
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+      </Row> */}
 
       {/* <Card>
         <Card.Header>

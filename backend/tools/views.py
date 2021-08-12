@@ -2,10 +2,11 @@ from django.core.files.images import ImageFile
 from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework import viewsets, permissions, status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
 from tools.handlers import validate_data
+from tools.crosstab.plots import get_plot
 from tools.models import ToolsModel
 from tools.serializers import ToolsSerializer
 from tools.permisions import IsOwnerOrReadOnly
@@ -63,6 +64,17 @@ def columnNamesCrosstabDataset(request):
         else:
             return Response(list(pd.read_excel(request.FILES['dataset']).columns.values))
     return Response({"message": "Welcome to crosstab tool column names finder"})
+    
+@api_view(["GET"])
+@permission_classes([permissions.IsAuthenticated])
+def crosstabPlot(request, pk):
+    plot_path = get_plot(ResultsModel.objects.get(result_id=pk).upload_results)
+    return Response({"url": plot_path})
+
+
+
+
+
 """
 
 {

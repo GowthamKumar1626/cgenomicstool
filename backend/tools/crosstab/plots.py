@@ -1,3 +1,4 @@
+from datetime import datetime
 from tools.crosstab.preprocessing import divide_chunks, categorization
 from tools.crosstab.handlers import time_it, try_except
 from tools.crosstab.Exceptions import *
@@ -6,6 +7,7 @@ from tools.crosstab.meta_data import encode, load_meta_data
 
 import numpy as np
 import pandas
+import pandas as pd
 
 import os
 
@@ -17,8 +19,8 @@ import matplotlib as mpl
 import matplotlib.patches as mpatches
 
 mpl.rc('axes', labelsize=14)
-mpl.rc('xtick', labelsize=12)
-mpl.rc('ytick', labelsize=12)
+mpl.rc('xtick', labelsize=7)
+mpl.rc('ytick', labelsize=7)
 
 gene_class = []
 meta_labels = []
@@ -101,12 +103,18 @@ def plot_settings():
     global colors, labels, handles
 
     plt.switch_backend("AGG")
+    print(f"Length of labels: {len(labels)}")
     plt.figure(figsize=(15,10))
     plt.subplot(211)
     sns.set(font_scale=1)
     handles = [mpatches.Patch(color=color, label=label) for color, label in zip(colors, labels)]
     plt.legend(handles=handles, ncol=2, bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
         mode="expand", borderaxespad=0.)
+        
+    plt.yticks(
+        rotation=45, 
+        horizontalalignment='right', 
+    )
 
 def plot(
         dataset: pandas.core.frame,
@@ -119,7 +127,10 @@ def plot(
     generate_labels_colors(encodings_present)
     plot_settings()
 
-    sns.heatmap(chunk_dataset, vmin=0, vmax=n_colors, cmap=cmap, cbar=False)
+    sns.heatmap(chunk_dataset, vmin=0, vmax=n_colors, cmap=cmap, cbar=False )
+    # y_ticks = chunk_dataset.reset_index().index.tolist()
+    
+    # sns.heatmap(chunk_dataset, vmin=0, yticklabels=y_ticks, vmax=n_colors, cmap=cmap, cbar=False )
     # plt.savefig(f"./static/results/images/complete_plot.png", bbox_inches = 'tight', dpi=300)
     plt.savefig(path, bbox_inches = 'tight', dpi=300)
 
@@ -193,4 +204,10 @@ def plot_range(dataset, **kwargs):
     range_plot_count += 1
     plt.savefig(f"./static/results/images/range_plot-{range_plot_count}.png", bbox_inches = 'tight')
 
-    
+
+
+def get_plot(file_id):
+    dataframe = pd.read_csv(f"./static/{file_id}")
+    file_path = f'./static/images/{(str(datetime.now()).replace(" ", "_").replace(":",""))}.jpeg'
+    plot(dataframe, file_path)
+    return file_path.replace(".", "http://127.0.0.1:8000/media", 1)
