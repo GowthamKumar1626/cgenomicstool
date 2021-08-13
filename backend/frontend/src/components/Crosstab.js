@@ -26,6 +26,9 @@ function Crosstab({ location, history }) {
   const crosstabResults = useSelector((state) => state.crosstab);
   const { error, loading, crosstabResult } = crosstabResults;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const submitHandler = (event) => {
     event.preventDefault();
     setDataset(event.target.files[0]);
@@ -98,9 +101,16 @@ function Crosstab({ location, history }) {
             <Card.Header>Choose Inputs</Card.Header>
             <Card.Body>
               {!crosstabInputsList ? (
-                <Message variant="warning">
-                  Upload dataset to choose inputs
-                </Message>
+                <div>
+                  <Message variant="warning">
+                    Upload dataset to choose inputs
+                  </Message>
+                  {!userInfo ? (
+                    <Message variant="danger">
+                      Please login to access tool
+                    </Message>
+                  ) : null}
+                </div>
               ) : (
                 <Form onSubmit={submitColumnDetailsHandler}>
                   <Form.Group controlId="genome_column" className="mb-3">
