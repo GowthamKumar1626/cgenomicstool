@@ -7,6 +7,8 @@ import { listResultDetails } from "../actions/resultsListActions";
 
 // import { Markup } from "interweave";
 import Loader from "../components/Loader";
+// import Plot from "../components/Plot";
+import Cell from "../components/Cell";
 
 function ResultOverviewScreen({ match, history, location }) {
   const resultDetails = useSelector((state) => state.resultDetails);
@@ -30,6 +32,13 @@ function ResultOverviewScreen({ match, history, location }) {
     // )[0].innerHTML = result.upload_results);
   }, [dispatch, match, history, userInfo]);
 
+  let style = {
+    height: 25,
+  };
+
+  // Each - 25
+  // 10 - 350
+  // 9 - 325
   return (
     <div>
       <h2>Result Overview</h2>
@@ -50,11 +59,18 @@ function ResultOverviewScreen({ match, history, location }) {
       </Card>
       <Card className="my-3">
         <Card.Header>HeatMap</Card.Header>
-        <Card.Body>
-          <Card.Img
+        <Card.Body id="plot-table" className="overflow-auto">
+          {/* <Plot /> */}
+          <div className="timeline-body">
+            <div className="timeline-cells" style={style}>
+              <Cell color={"rgba(3, 160, 3, 0.6)"} />
+            </div>
+          </div>
+
+          {/* <Card.Img
             src={result.image}
             className="crosstab-image overflow-auto"
-          />
+          /> */}
         </Card.Body>
       </Card>
       {/* <Row>

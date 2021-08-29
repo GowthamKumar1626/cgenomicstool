@@ -5,6 +5,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { register } from "../actions/userActions";
+import ReCAPTCHA from "react-google-recaptcha";
 
 function RegisterScreen({ location, history }) {
   const [name, setName] = useState("");
@@ -12,6 +13,8 @@ function RegisterScreen({ location, history }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState("");
+  const [captchaVerifiedMessage, setCaptchaVerifiedMessage] = useState("");
 
   const dispatch = useDispatch();
 
@@ -31,8 +34,21 @@ function RegisterScreen({ location, history }) {
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
     } else {
-      dispatch(register(name, email, password));
+      if (email && password && confirmPassword) {
+        if (isCaptchaVerified) {
+          dispatch(register(name, email, password));
+        } else {
+          setCaptchaVerifiedMessage("Please verify captcha");
+        }
+      } else {
+        setCaptchaVerifiedMessage("Please fill all details");
+      }
     }
+  };
+
+  const onChangeCaptcha = (value) => {
+    console.log(value);
+    setIsCaptchaVerified(value);
   };
 
   return (
@@ -44,27 +60,34 @@ function RegisterScreen({ location, history }) {
           {error && <Message variant="danger">{error}</Message>}
           {loading && <Loader />}
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId="name" className="my-1">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                placeholder="Enter name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId="email" className="my-1">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                required
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId="password" className="my-1">
+            <Row className="my-3">
+              <Col md={5}>
+                <Form.Group controlId="name" className="my-1">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    required
+                    type="text"
+                    placeholder="Enter name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={7}>
+                <Form.Group controlId="email" className="my-1">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    required
+                    type="email"
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+
+            <Form.Group controlId="password" className="my-3">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 required
@@ -84,18 +107,35 @@ function RegisterScreen({ location, history }) {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </Form.Group>
-            <Button type="submit" variant="primary">
-              Register
-            </Button>
+
+            <Row className="my-3">
+              <Col>
+                <ReCAPTCHA
+                  sitekey="6LcsrzAcAAAAAJkg8KvEVYgwmG3kAW8olOf1faXl"
+                  onChange={onChangeCaptcha}
+                />
+              </Col>
+              <Col>
+                <Button type="submit" variant="primary" className="my-1 w-50">
+                  REGISTER
+                </Button>
+                <Row className="py-1">
+                  <Col>
+                    Have an account?{" "}
+                    <Link
+                      to={redirect ? `/login?redirect=${redirect}` : "/login"}
+                    >
+                      SIGN IN
+                    </Link>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
           </Form>
-          <Row className="py-3">
-            <Col>
-              Have an account?{" "}
-              <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
-                Sign In
-              </Link>
-            </Col>
-          </Row>
+
+          {captchaVerifiedMessage ? (
+            <Message variant="danger">{captchaVerifiedMessage}</Message>
+          ) : null}
         </Col>
       </Row>
     </Container>

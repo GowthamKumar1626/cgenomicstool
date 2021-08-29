@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store";
 import "./index.css";
+import "./index.scss";
 import "./bootstrap.min.css";
 
 ReactDOM.render(
