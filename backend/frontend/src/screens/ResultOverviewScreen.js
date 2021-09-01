@@ -7,6 +7,7 @@ import { listResultDetails } from "../actions/resultsListActions";
 
 // import { Markup } from "interweave";
 import Loader from "../components/Loader";
+import ChartWrapper from "../components/ChartWrapper";
 // import Plot from "../components/Plot";
 import Cell from "../components/Cell";
 
@@ -66,6 +67,7 @@ function ResultOverviewScreen({ match, history, location }) {
               <Cell color={"rgba(3, 160, 3, 0.6)"} />
             </div>
           </div>
+          <ChartWrapper />
 
           {/* <Card.Img
             src={result.image}
