@@ -1,12 +1,12 @@
 import * as d3 from "d3";
 
 const url =
-  "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/heatmap_data.csv";
+  "https://raw.githubusercontent.com/GowthamKumar1626/cgenomicstool/main/backend/static/files/heatmap_new_2.csv";
 export default class D3Chart {
   constructor(element) {
     const margin = { top: 80, right: 25, bottom: 30, left: 40 },
       width = 1300 - margin.left - margin.right,
-      height = 900 - margin.top - margin.bottom;
+      height = 1500 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     const svg = d3
@@ -46,7 +46,7 @@ export default class D3Chart {
       const myColor = d3
         .scaleSequential()
         .interpolator(d3.interpolateInferno)
-        .domain([1, 100]);
+        .domain([0, 34]);
 
       // create a tooltip
       const tooltip = d3
@@ -111,7 +111,7 @@ export default class D3Chart {
       .attr("y", -50)
       .attr("text-anchor", "left")
       .style("font-size", "22px")
-      .text("A d3.js heatmap");
+      .text("Heatmap");
 
     // Add subtitle to graph
     svg
